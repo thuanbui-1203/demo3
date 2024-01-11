@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class RegisterSalespersonServlet extends HttpServlet {
     @Override
@@ -17,13 +18,15 @@ public class RegisterSalespersonServlet extends HttpServlet {
         RequestDispatcher rd = req.getRequestDispatcher("ManagerRegisterSalesperson.jsp");
 
         String name = req.getParameter("fullName");
-        String mail = req.getParameter("gmailAddress");
 
         UserModel regUser = new UserModel();
-        regUser.setMail(mail);
         regUser.setName(name);
 
         UserService UserDAO = new UserImpl();
-        UserDAO.registerSalesperson(name);
+        try {
+            UserDAO.registerSalesperson(name);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

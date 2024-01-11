@@ -3,11 +3,11 @@ package com.example.demo3.Services;
 import java.sql.SQLException;
 
 public interface UserService {
-    String registerSalesperson(String name);
+    boolean registerSalesperson(String name) throws SQLException;
 
-    String registerCustomer();
+    String registerCustomer(String name, String email);
 
-    boolean isRegistered();
+    boolean isRegistered(String name) throws SQLException;
 
     String isValidCredentials(String username, String password) throws SQLException;
 
