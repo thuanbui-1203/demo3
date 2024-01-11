@@ -14,7 +14,7 @@ public class UserImpl implements UserService {
     public boolean registerSalesperson(String name) throws SQLException {
         Connection conn = Database.conn();
         PreparedStatement ps = null;
-        boolean isReg = isRegistered(name)
+        boolean isReg = isRegistered(name);
 
         String ph = PasswordHashing.hashPassword(name);
 
