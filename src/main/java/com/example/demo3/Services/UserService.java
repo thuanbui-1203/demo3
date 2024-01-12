@@ -9,6 +9,8 @@ public interface UserService {
 
     boolean isRegistered(String name) throws SQLException;
 
+    void setLoginLink(String name, String loginLink) throws SQLException;
+
     String isValidCredentials(String username, String password) throws SQLException;
 
     String getUserDetail() throws SQLException;
