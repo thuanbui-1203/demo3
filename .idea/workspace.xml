@@ -9,13 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a880a8ff-d3e8-4680-849f-decaea93e074" name="Changes" comment="add files">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo3/Utilities/JavaMailUtil.java" afterDir="false" />
+    <list default="true" id="a880a8ff-d3e8-4680-849f-decaea93e074" name="Changes" comment="update files for 13/01">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo3/Services/Implements/UserImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo3/Services/Implements/UserImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo3/Services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo3/Services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo3/Servlets/RegisterSalespersonServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo3/Servlets/RegisterSalespersonServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/AdminFunction.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/AdminFunction.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo3/Utilities/JavaMailUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo3/Utilities/JavaMailUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -435,7 +432,8 @@
       <workItem from="1704962356244" duration="1128000" />
       <workItem from="1704991270555" duration="873000" />
       <workItem from="1705043680428" duration="1728000" />
-      <workItem from="1705079347055" duration="7938000" />
+      <workItem from="1705079347055" duration="8288000" />
+      <workItem from="1705168767218" duration="3658000" />
     </task>
     <task id="LOCAL-00001" summary="add files">
       <option name="closed" value="true" />
@@ -453,7 +451,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704963483072</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update files for 13/01">
+      <option name="closed" value="true" />
+      <created>1705095068175</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705095068175</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -474,7 +480,8 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="add files" />
-    <option name="LAST_COMMIT_MESSAGE" value="add files" />
+    <MESSAGE value="update files for 13/01" />
+    <option name="LAST_COMMIT_MESSAGE" value="update files for 13/01" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

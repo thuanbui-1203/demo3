@@ -1,5 +1,6 @@
 package com.example.demo3.Services.Implements;
 
+import com.example.demo3.Models.UserModel;
 import com.example.demo3.Services.UserService;
 import com.example.demo3.Utilities.Database;
 import com.example.demo3.Utilities.PasswordHashing;
@@ -14,22 +15,26 @@ public class UserImpl implements UserService {
     public boolean registerSalesperson(String name) throws SQLException {
         Connection conn = Database.conn();
         PreparedStatement ps1 = null;
+        UserModel user = new UserModel();
+        user.setName(name);
+        user.setPassword(PasswordHashing.hashPassword(name));
+        user.setMail(name + "@gmail.com");
+        user.setRole("salesperson");
+        user.setLocked(false);
         ResultSet rs = null;
         boolean isReg = isRegistered(name);
-
-        String ph = PasswordHashing.hashPassword(name);
 
         try {
             if (!isReg) {
                 ps1 = conn.prepareStatement
                         ("insert into users (UserName, Email, PasswordHash, UserType, IsActive, IsLocked) " +
                                 "values (?, ?, ?, ?, ?, ?)");
-                ps1.setString(1, name);
-                ps1.setString(2, name + "@gmail.com");
-                ps1.setString(3, ph);
-                ps1.setString(4, "salesperson");
-                ps1.setString(5, "0");
-                ps1.setString(6, "0");
+                ps1.setString(1, user.getName());
+                ps1.setString(2, user.getMail());
+                ps1.setString(3, user.getPassword());
+                ps1.setString(4, user.getRole());
+                ps1.setInt(5, 1);
+                ps1.setInt(6, 0);
                 rs = ps1.executeQuery();
 
                 Database.closeConnection(ps1);
@@ -115,11 +120,15 @@ public class UserImpl implements UserService {
 
         try {
             ps = conn.prepareStatement("INSERT INTO javafinal.loginlinks (UserID, LoginLink, ExpiryTime) \n" +
-                    "SELECT UserID, '" + LoginLink + "', 'DATE_ADD(NOW(), INTERVAL 2 HOUR)' \n" +
+                    "SELECT UserID,  ? , 'DATE_ADD(NOW(), INTERVAL 2 HOUR)' \n" +
                     "FROM javafinal.users \n" +
-                    "WHERE UserName = '" + name + "'; \n");
+                    "WHERE UserName = ?; \n");
+            ps.setString(1, LoginLink);
+            ps.setString(2, name);
             rs = ps.executeQuery();
-
+            if (rs.next()) {
+//                JavaMailUtil.sendMailReg("");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

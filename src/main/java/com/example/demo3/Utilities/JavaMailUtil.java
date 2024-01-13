@@ -8,7 +8,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class JavaMailUtil {
-    public static void sendMail(String name) throws MessagingException {
+    public static void sendMailReg(String recipient, String subject, String htmlTextMessage, String verifyLoginLink) throws MessagingException {
         Properties properties = new Properties();
         String host = "smtp.gmail.com";
         properties.put("mail.smtp.host", host);
@@ -31,11 +31,12 @@ public class JavaMailUtil {
             }
         });
 
-        //Message message = prepareMessage(session, emailId, password);
-        //Transport.send(message);
+        Message message = prepareMessageReg(session, emailId, recipient, subject, htmlTextMessage, verifyLoginLink);
+        Transport.send(message);
     }
 
-    public static Message prepareMessage(Session session, String emailId, String recipientEmail, String verifyLink) {
+    public static Message prepareMessageReg(Session session, String emailId, String recipientEmail,
+                                            String subject, String htmlTextMessage, String verifyLink) {
         try {
             Message message = new MimeMessage(session);
 
