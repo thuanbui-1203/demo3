@@ -9,11 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a880a8ff-d3e8-4680-849f-decaea93e074" name="Changes" comment="update files for 13/01">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo3/Services/Implements/UserImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo3/Services/Implements/UserImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo3/Utilities/JavaMailUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo3/Utilities/JavaMailUtil.java" afterDir="false" />
-    </list>
+    <list default="true" id="a880a8ff-d3e8-4680-849f-decaea93e074" name="Changes" comment="update files for 14/01" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -433,7 +429,7 @@
       <workItem from="1704991270555" duration="873000" />
       <workItem from="1705043680428" duration="1728000" />
       <workItem from="1705079347055" duration="8288000" />
-      <workItem from="1705168767218" duration="3658000" />
+      <workItem from="1705168767218" duration="3690000" />
     </task>
     <task id="LOCAL-00001" summary="add files">
       <option name="closed" value="true" />
@@ -459,7 +455,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705095068175</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update files for 14/01">
+      <option name="closed" value="true" />
+      <created>1705175710061</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705175710061</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +485,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="add files" />
     <MESSAGE value="update files for 13/01" />
-    <option name="LAST_COMMIT_MESSAGE" value="update files for 13/01" />
+    <MESSAGE value="update files for 14/01" />
+    <option name="LAST_COMMIT_MESSAGE" value="update files for 14/01" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

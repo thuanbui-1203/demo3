@@ -127,11 +127,61 @@ public class UserImpl implements UserService {
             ps.setString(2, name);
             rs = ps.executeQuery();
             if (rs.next()) {
-//                JavaMailUtil.sendMailReg("");
+                setAccountActive(name, LoginLink);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setAccountActive(String name, String LoginLink) throws SQLException {
+        Connection conn = Database.conn();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = conn.prepareStatement("SELECT loginlinks.UserID\n" +
+                    "FROM javafinal.loginlinks\n" +
+                    "JOIN javafinal.users ON loginlinks.UserID = users.UserID\n" +
+                    "WHERE loginlinks.LoginLink = ? AND users.UserName = ?;\n");
+            ps.setString(1, LoginLink);
+            ps.setString(2, name);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE javafinal.users\n" +
+                        "SET IsActive = 1\n" +
+                        "WHERE UserID IN (\n" +
+                        "    SELECT ll.UserID\n" +
+                        "    FROM javafinal.loginlinks ll\n" +
+                        "    JOIN javafinal.users u ON ll.UserID = u.UserID\n" +
+                        "    WHERE ll.LoginLink = ?\n" +
+                        ");\n");
+                ps.setString(1, LoginLink);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String setNewPasswordFromLoginLink(String password, String loginLink) throws SQLException {
+        Connection conn = Database.conn();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String ph = PasswordHashing.hashPassword(password);
+
+        try {
+            ps = conn.prepareStatement("select * from loginlinks where LoginLink = ?");
+            ps.setString(1, loginLink);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 
     @Override

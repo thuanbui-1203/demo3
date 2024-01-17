@@ -7,6 +7,10 @@ public interface UserService {
 
     String registerCustomer(String name, String email);
 
+    void setAccountActive(String name, String LoginLink) throws SQLException;
+
+    String setNewPasswordFromLoginLink(String password, String loginLink) throws SQLException;
+
     boolean isRegistered(String name) throws SQLException;
 
     void setLoginLink(String name, String loginLink) throws SQLException;
