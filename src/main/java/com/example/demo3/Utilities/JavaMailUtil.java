@@ -7,6 +7,7 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+
 public class JavaMailUtil {
     public static void sendMailReg(String recipient, String subject, String htmlTextMessage, String verifyLoginLink) throws MessagingException {
         Properties properties = new Properties();
@@ -17,7 +18,7 @@ public class JavaMailUtil {
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.port", "587");
 
-        ResourceBundle rb = ResourceBundle.getBundle("app");
+        ResourceBundle rb = ResourceBundle.getBundle("application");
         String emailId = rb.getString("mailer.email");
         String password = rb.getString("mailer.password");
 
@@ -46,7 +47,7 @@ public class JavaMailUtil {
             message.setSubject("Register Verification");
             message.setText("Hello " + recipientEmail + "!" + " " +
                     "Click the link below to verify your account: http://localhost:8080/active.jsp?loginlink=" + verifyLink); //Will fix later
-
+            message.setContent(htmlTextMessage, "text/html; charset=UTF-8");
             return message;
         } catch (Exception e) {
             e.printStackTrace();

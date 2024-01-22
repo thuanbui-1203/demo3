@@ -7,17 +7,17 @@ public interface UserService {
 
     String registerCustomer(String name, String email);
 
-    void setAccountActive(String name, String LoginLink) throws SQLException;
+    void setAccountActive(String LoginLink) throws SQLException;
 
     String setNewPasswordFromLoginLink(String password, String loginLink) throws SQLException;
 
     boolean isRegistered(String name) throws SQLException;
 
-    void setLoginLink(String name, String loginLink) throws SQLException;
+    boolean setLoginLink(String name, String loginLink) throws SQLException;
 
     String isValidCredentials(String username, String password) throws SQLException;
 
-    String getUserDetail() throws SQLException;
+    Object getUserDetail(String loginlink) throws SQLException;
 
     String getFName();
 

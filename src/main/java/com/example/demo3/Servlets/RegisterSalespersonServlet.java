@@ -4,6 +4,7 @@ import com.example.demo3.Services.Implements.UserImpl;
 import com.example.demo3.Services.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,20 +12,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Random;
 
+@WebServlet("/RegisterSalespersonServlet")
 public class RegisterSalespersonServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String name = req.getParameter("fullName");
 
         UserService UserDAO = new UserImpl();
-        try {
-            UserDAO.registerSalesperson(name);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         try {
+            UserDAO.registerSalesperson(name);
             addLoginLink(64, name);
         } catch (SQLException e) {
             throw new RuntimeException(e);

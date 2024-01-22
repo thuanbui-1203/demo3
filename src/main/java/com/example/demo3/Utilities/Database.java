@@ -12,7 +12,7 @@ public class Database {
     public static Connection conn() throws SQLException {
         try {
             if (conn == null || conn.isClosed()) {
-                ResourceBundle rb = ResourceBundle.getBundle("app");
+                ResourceBundle rb = ResourceBundle.getBundle("application");
                 String connectionString = rb.getString("db.connectionString");
                 String driverName = rb.getString("db.driverName");
                 String userName = rb.getString("db.username");

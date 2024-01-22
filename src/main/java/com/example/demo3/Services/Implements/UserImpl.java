@@ -3,6 +3,7 @@ package com.example.demo3.Services.Implements;
 import com.example.demo3.Models.UserModel;
 import com.example.demo3.Services.UserService;
 import com.example.demo3.Utilities.Database;
+import com.example.demo3.Utilities.MailMessage;
 import com.example.demo3.Utilities.PasswordHashing;
 
 import java.sql.Connection;
@@ -27,17 +28,13 @@ public class UserImpl implements UserService {
         try {
             if (!isReg) {
                 ps1 = conn.prepareStatement
-                        ("insert into users (UserName, Email, PasswordHash, UserType, IsActive, IsLocked) " +
-                                "values (?, ?, ?, ?, ?, ?)");
+                        ("insert into users (UserName, Email, PasswordHash, UserType) " +
+                                "values (?, ?, ?, ?)");
                 ps1.setString(1, user.getName());
                 ps1.setString(2, user.getMail());
                 ps1.setString(3, user.getPassword());
                 ps1.setString(4, user.getRole());
-                ps1.setInt(5, 1);
-                ps1.setInt(6, 0);
-                rs = ps1.executeQuery();
-
-                Database.closeConnection(ps1);
+                ps1.executeUpdate();
                 return true;
             }
         } catch (SQLException e) {
@@ -102,62 +99,71 @@ public class UserImpl implements UserService {
     }
 
     @Override
-    public String getUserDetail() throws SQLException {
-        String role = "";
+    public UserModel getUserDetail(String loginlink) throws SQLException {
+        UserModel user = null;
         Connection conn = Database.conn();
         PreparedStatement ps = null;
         ResultSet rs = null;
-
-
-        return null;
-    }
-
-    @Override
-    public void setLoginLink(String name, String LoginLink) throws SQLException {
-        Connection conn = Database.conn();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-
         try {
-            ps = conn.prepareStatement("INSERT INTO javafinal.loginlinks (UserID, LoginLink, ExpiryTime) \n" +
-                    "SELECT UserID,  ? , 'DATE_ADD(NOW(), INTERVAL 2 HOUR)' \n" +
-                    "FROM javafinal.users \n" +
-                    "WHERE UserName = ?; \n");
-            ps.setString(1, LoginLink);
-            ps.setString(2, name);
+            ps = conn.prepareStatement("select * from users where LoginLink = ?");
+            ps.setString(1, loginlink);
             rs = ps.executeQuery();
             if (rs.next()) {
-                setAccountActive(name, LoginLink);
+                user = new UserModel();
+
+                user.setName(rs.getString("UserName"));
+                user.setPassword(rs.getString("PasswordHash"));
+                user.setRole(rs.getString("UserType"));
+                user.setMail(rs.getString("Email"));
+                user.setLoginLink(rs.getString("LoginLink"));
+                user.setLocked(false);
+
+                return user;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return user;
     }
 
     @Override
-    public void setAccountActive(String name, String LoginLink) throws SQLException {
+    public boolean setLoginLink(String name, String LoginLink) throws SQLException {
+        Connection conn = Database.conn();
+        PreparedStatement ps = null;
+        String email = name + "@gmail.com";
+
+        try {
+            ps = conn.prepareStatement("UPDATE users SET LoginLink = ? WHERE UserName = ?");
+            ps.setString(1, LoginLink);
+            ps.setString(2, name);
+            int rowAffected = ps.executeUpdate();
+            if (rowAffected > 0) {
+//                setAccountActive(name, LoginLink);
+                MailMessage.registrationSuccess(name, email, LoginLink);
+                return true;
+            }
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    @Override
+    public void setAccountActive(String LoginLink) throws SQLException {
         Connection conn = Database.conn();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
-            ps = conn.prepareStatement("SELECT loginlinks.UserID\n" +
-                    "FROM javafinal.loginlinks\n" +
-                    "JOIN javafinal.users ON loginlinks.UserID = users.UserID\n" +
-                    "WHERE loginlinks.LoginLink = ? AND users.UserName = ?;\n");
+            ps = conn.prepareStatement("SELECT * FROM javafinal.users WHERE LoginLink = ?");
             ps.setString(1, LoginLink);
-            ps.setString(2, name);
             rs = ps.executeQuery();
             if (rs.next()) {
-                ps = conn.prepareStatement("UPDATE javafinal.users\n" +
-                        "SET IsActive = 1\n" +
-                        "WHERE UserID IN (\n" +
-                        "    SELECT ll.UserID\n" +
-                        "    FROM javafinal.loginlinks ll\n" +
-                        "    JOIN javafinal.users u ON ll.UserID = u.UserID\n" +
-                        "    WHERE ll.LoginLink = ?\n" +
-                        ");\n");
+                ps = conn.prepareStatement("UPDATE users SET IsActive = 1 WHERE LoginLink = ?");
                 ps.setString(1, LoginLink);
+                ps.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -171,17 +177,22 @@ public class UserImpl implements UserService {
         String ph = PasswordHashing.hashPassword(password);
 
         try {
-            ps = conn.prepareStatement("select * from loginlinks where LoginLink = ?");
+            ps = conn.prepareStatement("select * from users where LoginLink = ?");
             ps.setString(1, loginLink);
             rs = ps.executeQuery();
             if (rs.next()) {
-                ps = conn.prepareStatement("");
+                ps = conn.prepareStatement("update users set PasswordHash = ? where LoginLink = ?");
+                ps.setString(1, ph);
+                ps.setString(2, loginLink);
+                ps.executeUpdate();
+
+                setAccountActive(loginLink);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return "";
+        return "Set new password successfully";
     }
 
     @Override

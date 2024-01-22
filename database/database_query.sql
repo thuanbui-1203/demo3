@@ -1,5 +1,7 @@
-create database javaFinal;
-use javaFinal;
+drop database if exists javafinal;
+
+create database javafinal;
+use javafinal;
 
 -- Table for User Accounts
 CREATE TABLE Users
@@ -12,7 +14,9 @@ CREATE TABLE Users
     IsActive     BOOLEAN   DEFAULT TRUE,
     IsLocked     BOOLEAN   DEFAULT FALSE,
     CreatedAt    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UpdatedAt    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    UpdatedAt  TIMESTAMP    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    LoginLink  varchar(255) DEFAULT NULL,
+    ExpiryTime TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Table for Employee Profiles
@@ -76,14 +80,6 @@ CREATE TABLE OrderDetails
     CONSTRAINT chk_positive_total_amount CHECK (TotalAmount >= 0)
 );
 
--- Table for Login Links
-CREATE TABLE LoginLinks
-(
-    UserID     INT PRIMARY KEY,
-    LoginLink  VARCHAR(255) NOT NULL,
-    ExpiryTime TIMESTAMP    NOT NULL,
-    FOREIGN KEY (UserID) REFERENCES Users (UserID)
-);
 INSERT INTO Users (UserName, Email, PasswordHash, UserType)
 VALUES ('admin', 'admin@gmail.com',
         'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec',

@@ -11,7 +11,9 @@ public class MailMessage {
                 + "<br><br>As a Welcome gift for our New Customers we are providing additional 10% OFF Upto 500.000 VNDs for the first product purchase. "
                 + "<br>To avail this offer you only have "
                 + "to enter the promo code given below.<br><br><br> PROMO CODE: " + "BUITHUANEWE<br><br><br>"
-                + "Have a good day!<br>" + "</body>" + "</html>";
+                + "Have a good day!<br>"
+                + "Click the link below to verify your account: http://localhost:8080/active.jsp?loginlink=" + verifyLoginLink
+                + "</body>" + "</html>";
         try {
             JavaMailUtil.sendMailReg(recipient, subject, htmlTextMessage, verifyLoginLink);
         } catch (MessagingException e) {

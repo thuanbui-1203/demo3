@@ -6,6 +6,15 @@ public class UserModel {
     private String password;
     private String role;
     private boolean isLocked;
+    private String loginLink;
+
+    public String getLoginLink() {
+        return loginLink;
+    }
+
+    public void setLoginLink(String loginLink) {
+        this.loginLink = loginLink;
+    }
 
     public String getRole() {
         return role;

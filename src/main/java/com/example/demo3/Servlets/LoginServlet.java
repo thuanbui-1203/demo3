@@ -53,7 +53,6 @@ public class LoginServlet extends HttpServlet {
 
             HttpSession session = req.getSession();
             session.setAttribute("username", username);
-            session.setAttribute("password", password);
             session.setAttribute("role", role);
             rd.forward(req, resp);
         } else {
